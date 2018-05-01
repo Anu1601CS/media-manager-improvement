@@ -269,7 +269,7 @@ class ApiController extends BaseController
 		$mediaContent = base64_decode($content->get('content', '', 'raw'));
 		$newPath      = $content->getString('newPath', null);
 		$move         = $content->get('move', true);
-		$force 				= $params->get('force_move_and_copy');
+		$force        = $params->get('force_move_and_copy');
 
 		if ($mediaContent != null)
 		{
