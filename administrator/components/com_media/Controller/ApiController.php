@@ -259,6 +259,8 @@ class ApiController extends BaseController
 	 */
 	public function putFiles()
 	{
+		$params = ComponentHelper::getParams('com_media');
+
 		$adapter = $this->getAdapter();
 		$path    = $this->getPath();
 
@@ -267,6 +269,7 @@ class ApiController extends BaseController
 		$mediaContent = base64_decode($content->get('content', '', 'raw'));
 		$newPath      = $content->getString('newPath', null);
 		$move         = $content->get('move', true);
+		$force 				= $params->get('force_move_and_copy');
 
 		if ($mediaContent != null)
 		{
@@ -281,11 +284,11 @@ class ApiController extends BaseController
 
 			if ($move)
 			{
-				$destinationPath = $this->getModel()->move($adapter, $path, $destinationPath, true);
+				$destinationPath = $this->getModel()->move($adapter, $path, $destinationPath, $force);
 			}
 			else
 			{
-				$destinationPath = $this->getModel()->copy($adapter, $path, $destinationPath, true);
+				$destinationPath = $this->getModel()->copy($adapter, $path, $destinationPath, $force);
 			}
 
 			$path = $destinationPath;
